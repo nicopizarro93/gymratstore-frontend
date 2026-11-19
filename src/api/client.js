@@ -21,10 +21,10 @@ export class ApiError extends Error {
   }
 }
 
-// ---- almacenamiento de tokens (localStorage: sobrevive a recargas de página) ----
+// ---- almacenamiento de tokens (sessionStorage: sobrevive a recargas de página, pero se borra al cerrar la pestaña) ----
 export function getTokens() {
   try {
-    const raw = localStorage.getItem(KEY_TOKENS);
+    const raw = sessionStorage.getItem(KEY_TOKENS);
     return raw ? JSON.parse(raw) : null;
   } catch (e) {
     return null;
@@ -33,15 +33,15 @@ export function getTokens() {
 
 export function setTokens(tokens) {
   try {
-    localStorage.setItem(KEY_TOKENS, JSON.stringify({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken }));
+    sessionStorage.setItem(KEY_TOKENS, JSON.stringify({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken }));
   } catch (e) {
-    /* sin localStorage la sesión dura solo mientras no se recargue */
+    /* sin sessionStorage la sesión dura solo mientras no se recargue */
   }
 }
 
 export function clearTokens() {
   try {
-    localStorage.removeItem(KEY_TOKENS);
+    sessionStorage.removeItem(KEY_TOKENS);
   } catch (e) {
     /* noop */
   }

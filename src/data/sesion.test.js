@@ -29,3 +29,15 @@ describe("puedeAcceder() - control de acceso por rol", () => {
     expect(puedeAcceder({ tipoUsuario: "Cliente" }, ["Administrador", "Vendedor"])).toBe(false);
   });
 });
+
+describe("persistencia en sessionStorage", () => {
+  afterEach(() => cerrarSesion());
+  it("guarda tokens y usuario en sessionStorage (no en localStorage)", () => {
+    setTokens({ accessToken: "a", refreshToken: "r" });
+    guardarSesion({ run: "1", tipoUsuario: "Cliente" });
+    expect(sessionStorage.getItem("gr_tokens")).not.toBeNull();
+    expect(sessionStorage.getItem("gr_sesion")).not.toBeNull();
+    expect(localStorage.getItem("gr_tokens")).toBeNull();
+    expect(localStorage.getItem("gr_sesion")).toBeNull();
+  });
+});

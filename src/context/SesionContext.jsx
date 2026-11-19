@@ -3,7 +3,7 @@
  *
  *  - login/registrar llaman a la API, guardan los tokens y el usuario.
  *  - Al cargar la app (también tras recargar la página) la sesión se restaura desde
- *    localStorage y se VERIFICA contra el backend con GET /auth/me: si el token ya no
+ *    sessionStorage y se VERIFICA contra el backend con GET /auth/me: si el token ya no
  *    sirve (y no se pudo renovar), la sesión se cierra sola.
  *  - Si el cliente HTTP no logra renovar el token, emite "gr:sesion-expirada".
  */

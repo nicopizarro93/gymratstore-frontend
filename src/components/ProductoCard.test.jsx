@@ -31,7 +31,7 @@ function renderCard(producto) {
   );
 }
 
-beforeEach(() => localStorage.clear());
+beforeEach(() => { localStorage.clear(); sessionStorage.clear(); });
 
 describe("ProductoCard - renderizado y props", () => {
   it("muestra el nombre y la categoría del producto recibido", () => {

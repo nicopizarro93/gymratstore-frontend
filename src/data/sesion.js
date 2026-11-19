@@ -1,7 +1,7 @@
 /**
  * Gymratstore - sesión del usuario en el navegador.
  *
- * Qué se guarda y dónde (localStorage, así sobrevive a recargas de página):
+ * Qué se guarda y dónde (sessionStorage: sobrevive a recargas de página y se borra al cerrar la pestaña):
  *   - gr_tokens : { accessToken, refreshToken }  -> los administra api/client.js
  *   - gr_sesion : datos públicos del usuario (run, nombre, tipoUsuario, membresía...)
  *                 usados para pintar la interfaz. NUNCA se guarda la contraseña.
@@ -15,7 +15,7 @@ const KEY_SESION = "gr_sesion";
 
 export function guardarSesion(usuario) {
   try {
-    localStorage.setItem(KEY_SESION, JSON.stringify(usuario));
+    sessionStorage.setItem(KEY_SESION, JSON.stringify(usuario));
   } catch (e) {
     /* noop */
   }
@@ -24,7 +24,7 @@ export function guardarSesion(usuario) {
 
 export function getSesion() {
   try {
-    const raw = localStorage.getItem(KEY_SESION);
+    const raw = sessionStorage.getItem(KEY_SESION);
     return raw ? JSON.parse(raw) : null;
   } catch (e) {
     return null;
@@ -33,7 +33,7 @@ export function getSesion() {
 
 export function cerrarSesion() {
   try {
-    localStorage.removeItem(KEY_SESION);
+    sessionStorage.removeItem(KEY_SESION);
   } catch (e) {
     /* noop */
   }
